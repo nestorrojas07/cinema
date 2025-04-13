@@ -7,7 +7,7 @@ public class Movie
     public string Description { get; set; }
     public string Genre { get; set; }
     public int DurationMinutes { get; set; }
-    public DateTime LaunchAt { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
-    public DateTime UpdatedAt { get; set; }
+    public DateTimeOffset LaunchAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTimeOffset UpdatedAt { get; set; }
 }

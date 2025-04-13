@@ -6,5 +6,5 @@ public class MovieCreate
     public string Description { get; set; }
     public string Genre { get; set; }
     public int DurationMinutes { get; set; }
-    public DateTime LaunchAt { get; set; }
+    public DateTimeOffset LaunchAt { get; set; }
 }
