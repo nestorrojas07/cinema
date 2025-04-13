@@ -11,6 +11,8 @@ public class ShowSchedule
     public virtual Theater Theater { get; set; }
     public DateTimeOffset From { get; set; }
     public DateTimeOffset To { get; set; }
+    public int SeatsAvailable { get; set; }
+    public int SeatsSold { get; set; }
     public ShowScheduleStatus Status { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

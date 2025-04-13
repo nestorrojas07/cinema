@@ -56,6 +56,16 @@ public class ShowScheduleEntityTypeConfiguration : IEntityTypeConfiguration<Show
             .WithMany()
             .HasForeignKey(e => e.TheaterId)
             .IsRequired();
+        
+        builder.Property(p => p.SeatsAvailable)
+            .HasColumnName("seats_available")
+            .IsRequired()
+            .HasDefaultValue(0);
+        
+        builder.Property(p => p.SeatsSold)
+            .HasColumnName("seats_sold")
+            .IsRequired()
+            .HasDefaultValue(0);
     }
 
    
