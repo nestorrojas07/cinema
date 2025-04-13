@@ -9,9 +9,11 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
     public DbSet<Movie> movies { get; set; }
+    public DbSet<Theater> theaters { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -19,5 +21,8 @@ public class ApplicationDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new MovieEntityTypeConfiguration());
         modelBuilder.Entity<Movie>();
+        
+        modelBuilder.ApplyConfiguration(new TheaterEntityTypeConfiguration());
+        modelBuilder.Entity<Theater>();
     }
 }
