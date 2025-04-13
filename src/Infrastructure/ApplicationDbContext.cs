@@ -14,6 +14,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<Movie> movies { get; set; }
     public DbSet<Theater> theaters { get; set; }
+    public DbSet<Hall> halls { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,5 +25,8 @@ public class ApplicationDbContext : DbContext
         
         modelBuilder.ApplyConfiguration(new TheaterEntityTypeConfiguration());
         modelBuilder.Entity<Theater>();
+        
+        modelBuilder.ApplyConfiguration(new HallEntityTypeConfiguration());
+        modelBuilder.Entity<Hall>();
     }
 }

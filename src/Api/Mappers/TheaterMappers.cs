@@ -11,9 +11,9 @@ public static class TheaterMapper
     {
         return new TheaterCreate()
         {
-           Name = request.Name,
-           Address = request.Address,
-           Contact = request.Contact,
+           Name = request.Name!,
+           Address = request.Address!,
+           Contact = request.Contact!,
         };
     } 
     
@@ -21,9 +21,9 @@ public static class TheaterMapper
     {
         return new TheaterUpdateValue()
         {
-            Name = request.Name,
-            Address = request.Address,
-            Contact = request.Contact,
+            Name = request.Name!,
+            Address = request.Address!,
+            Contact = request.Contact!,
         };
     }
     

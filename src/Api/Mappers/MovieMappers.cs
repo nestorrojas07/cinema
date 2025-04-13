@@ -10,9 +10,9 @@ public static class MovieMappers
     {
         return new MovieCreate()
         {
-            Title = request.Title,
-            Description = request.Description,
-            Genre = request.Genre,
+            Title = request.Title!,
+            Description = request.Description!,
+            Genre = request.Genre!,
             DurationMinutes = request.DurationMinutes,
             LaunchAt = request.LaunchAt,
         };
@@ -22,9 +22,9 @@ public static class MovieMappers
     {
         return new MovieUpdateValue()
         {
-            Title = request.Title,
-            Description = request.Description,
-            Genre = request.Genre,
+            Title = request.Title!,
+            Description = request.Description!,
+            Genre = request.Genre!,
             DurationMinutes = request.DurationMinutes,
             LaunchAt = request.LaunchAt,
         };
