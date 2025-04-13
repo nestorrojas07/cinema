@@ -38,4 +38,9 @@ public class HallService
     {
         return await _repository.GetAllAsync(token);
     }
+
+    public async Task<IEnumerable<Hall>> GetAllAsync(HallSearch filter, CancellationToken token = default)
+    {
+        return await _repository.GetAllAsync(filter, token);
+    }
 }

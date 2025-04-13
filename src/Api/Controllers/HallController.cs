@@ -2,6 +2,7 @@
 using Api.Requests.Hall;
 using Application.Services;
 using Domain.Entities;
+using Domain.ObjectValues.Halls;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -18,9 +19,9 @@ public class HallController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Hall>>> GetAll()
+    public async Task<ActionResult<IEnumerable<Hall>>> GetAll([FromQuery] HallSearchRequest request, CancellationToken token = default)
     {
-        var movies = await _hallService.GetAllAsync();
+        var movies = await _hallService.GetAllAsync(request.ToHallSearch(), token);
         return Ok(movies);
     }
     

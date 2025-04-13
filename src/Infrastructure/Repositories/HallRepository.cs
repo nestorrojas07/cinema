@@ -36,6 +36,18 @@ public class HallRepository : IHallRepository
         return await _context.halls.ToListAsync(token);
     }
 
+    public async Task<IEnumerable<Hall>> GetAllAsync(HallSearch filter, CancellationToken token = default)
+    {
+        var query = _context.halls.AsQueryable();
+
+        //.AsNoTracking()
+        if (filter?.TheaterId != null)
+            query = query.Where(x => x.TheaterId == filter.TheaterId);
+        if (filter?.Name != null)
+            query = query.Where(x => x.Name.ToLower().Contains(filter.Name.ToLower()));
+        return await query.ToListAsync(token);
+    }
+
     public async Task<Hall> UpdateAsync(long id, HallUpdateValue entity, CancellationToken token = default)
     {
         var hall = await _context.halls.FindAsync(id);

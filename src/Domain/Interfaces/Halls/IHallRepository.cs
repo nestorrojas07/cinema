@@ -7,4 +7,5 @@ namespace Domain.Interfaces.Theaters;
 public interface IHallRepository : ICreate<Hall>, IUpdate<HallUpdateValue, long, Hall>, IRead<Hall>
 {
     Task<IEnumerable<Hall>> GetAllAsync(CancellationToken token = default);
+    Task<IEnumerable<Hall>> GetAllAsync(HallSearch filter,CancellationToken token = default);
 }

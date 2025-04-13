@@ -25,4 +25,14 @@ public static class HallMapper
             Rows = request.Rows,
         };
     }
+    public static HallSearch ToHallSearch(this HallSearchRequest request)
+    {
+        return new HallSearch()
+        {
+            Name = request.Name!,
+            TheaterId = request.TheaterId
+        };
+    }
+    
+    
 }
