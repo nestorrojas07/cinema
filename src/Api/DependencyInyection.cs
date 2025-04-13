@@ -11,6 +11,7 @@ public static class DependencyInyection
         
         services.AddScoped<MovieService>();
         services.AddScoped<TheaterService>();
+        services.AddScoped<HallService>();
         
         return services;
 

@@ -32,6 +32,7 @@ public static class DependencyInyection
     {
         services.AddScoped<IMovieRepository, MovieRepository>();
         services.AddScoped<ITheaterRepository, TheaterRepository>();
+        services.AddScoped<IHallRepository, HallRepository>();
 
         return services;
     }
