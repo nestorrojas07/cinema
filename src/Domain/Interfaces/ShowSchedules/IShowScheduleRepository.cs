@@ -8,4 +8,7 @@ public interface IShowScheduleRepository : ICreate<ShowSchedule>, IUpdate<ShowSc
 {
     Task<IEnumerable<ShowSchedule>> GetAllAsync(CancellationToken token = default);
     Task<IEnumerable<ShowSchedule>> GetAllAsync(ShowScheduleSearch filter,CancellationToken token = default);
+
+    Task IncrementSeatsStaticsticsAsyc(long showId, int seatsAvailable, int seatSold,
+        CancellationToken token = default);
 }

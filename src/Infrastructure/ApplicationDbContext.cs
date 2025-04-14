@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Entities.Enums;
 using Infrastructure.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Hall> halls { get; set; }
     public DbSet<ShowSchedule> showSchedules { get; set; }
     public DbSet<MovieList> moviesList { get; set; }
+    public DbSet<Reservation> reservations { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -35,5 +37,8 @@ public class ApplicationDbContext : DbContext
         
         modelBuilder.ApplyConfiguration(new ShowScheduleEntityTypeConfiguration());
         modelBuilder.Entity<ShowSchedule>();
+        
+        modelBuilder.ApplyConfiguration(new ReservationEntityTypeConfiguration());
+        modelBuilder.Entity<Reservation>();
     }
 }

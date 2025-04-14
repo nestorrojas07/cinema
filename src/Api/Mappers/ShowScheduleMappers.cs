@@ -9,10 +9,10 @@ public static class ShowScheduleMapper
     {
         return new ShowScheduleCreate()
         {
-            MovieId = request.MovieId,
-            TheaterId = request.TheaterId,
-            From = request.From,
-            To = request.To,
+            MovieListId = request.MovieListId,
+            HallId = request.HallId,
+            StartAt = request.StartAt,
+            EndAt = request.EndAt,
             Status = request.Status,
         };
     }
@@ -21,8 +21,6 @@ public static class ShowScheduleMapper
     {
         return new ShowScheduleUpdateValue()
         {
-           MovieId = request.MovieId,
-           TheaterId = request.TheaterId,
            From = request.From,
            To = request.To,
            Status = request.Status

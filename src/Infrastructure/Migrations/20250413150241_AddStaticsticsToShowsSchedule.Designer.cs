@@ -3,6 +3,7 @@ using System;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250413150241_AddStaticsticsToShowsSchedule")]
+    partial class AddStaticsticsToShowsSchedule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,93 +172,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("movies_list", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Reservation", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("email");
-
-                    b.Property<DateTimeOffset>("EndAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("end_at");
-
-                    b.Property<long>("HallId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("hall_id");
-
-                    b.Property<string>("Identification")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("identification");
-
-                    b.Property<string>("Invoice")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("invoice");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
-                        .HasColumnName("location");
-
-                    b.Property<long>("MovieId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("movie_id");
-
-                    b.Property<long>("ShowScheduleId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("show_schedule_id");
-
-                    b.Property<DateTimeOffset>("StartAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("start_at");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("status");
-
-                    b.Property<long>("TheaterId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("theater_id");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .HasDatabaseName("Idx_Reservation_email");
-
-                    b.HasIndex("HallId");
-
-                    b.HasIndex("Identification")
-                        .HasDatabaseName("Idx_Reservation_identification");
-
-                    b.HasIndex("MovieId");
-
-                    b.HasIndex("ShowScheduleId");
-
-                    b.HasIndex("TheaterId", "Status", "StartAt", "EndAt")
-                        .HasDatabaseName("Idx_Reservation_MovieId_From_To_TheaterId_Status");
-
-                    b.ToTable("reservations", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entities.ShowSchedule", b =>
                 {
                     b.Property<long>("Id")
@@ -377,41 +293,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Movie");
-
-                    b.Navigation("Theater");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Reservation", b =>
-                {
-                    b.HasOne("Domain.Entities.Hall", "Hall")
-                        .WithMany()
-                        .HasForeignKey("HallId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Movie", "Movie")
-                        .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.ShowSchedule", "ShowSchedule")
-                        .WithMany()
-                        .HasForeignKey("ShowScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Theater", "Theater")
-                        .WithMany()
-                        .HasForeignKey("TheaterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Hall");
-
-                    b.Navigation("Movie");
-
-                    b.Navigation("ShowSchedule");
 
                     b.Navigation("Theater");
                 });

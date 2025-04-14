@@ -3,9 +3,9 @@
 namespace Domain.Entities.Enums;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum ShowScheduleStatus
+public enum ReservationStatus
 {
-    NoListed = 0,
-    Scheduled = 1,
-    Finished = 2,
+    NoAssigned = 0,
+    Reserved = 1,
+    Payed = 2,
 }
