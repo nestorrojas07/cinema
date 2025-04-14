@@ -74,9 +74,15 @@ Editable file
 Running with Docker Compose    
 ![evidence](./assets/evidence.png)
 
+Generating Report    
+![evidence](./assets/reports.png)
+
+Preview Swagger    
+![evidence](./assets/swagger-video.gif)
+
+
 Docker File guia   
 [swagger file](./assets/swagger.json)
-
 
 
 
