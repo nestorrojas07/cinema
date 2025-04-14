@@ -34,6 +34,7 @@ using (var scope = app.Services.CreateScope())
     context.Database.Migrate();
     
     context.SeedMovies();
+    context.SeedTheaters();
 }
 
 app.UseHttpsRedirection();

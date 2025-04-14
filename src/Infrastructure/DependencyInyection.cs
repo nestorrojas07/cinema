@@ -1,4 +1,7 @@
-﻿using Domain.Interfaces.Movies;
+﻿using Domain.Interfaces.MovieLists;
+using Domain.Interfaces.Movies;
+using Domain.Interfaces.ShowSchedules;
+using Domain.Interfaces.Theaters;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +33,11 @@ public static class DependencyInyection
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IMovieRepository, MovieRepository>();
+        services.AddScoped<ITheaterRepository, TheaterRepository>();
+        services.AddScoped<IHallRepository, HallRepository>();
+        services.AddScoped<IMovieListRepository, MovieListRepository>();
+        services.AddScoped<IShowScheduleRepository, ShowScheduleRepository>();
+        services.AddScoped<IReservationRepository, ReservationRepository>();
 
         return services;
     }

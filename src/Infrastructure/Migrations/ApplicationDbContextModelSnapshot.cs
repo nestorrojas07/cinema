@@ -22,6 +22,57 @@ namespace Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.Hall", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Columns")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0)
+                        .HasColumnName("columns");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("name");
+
+                    b.Property<int>("Rows")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0)
+                        .HasColumnName("rows");
+
+                    b.Property<int>("Seats")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0)
+                        .HasColumnName("seats");
+
+                    b.Property<long>("TheaterId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("theater_id");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TheaterId");
+
+                    b.ToTable("halls", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Movie", b =>
                 {
                     b.Property<long>("Id")
@@ -30,7 +81,7 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -51,7 +102,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("genre");
 
-                    b.Property<DateTime>("LaunchAt")
+                    b.Property<DateTimeOffset>("LaunchAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("launch_at");
 
@@ -61,13 +112,327 @@ namespace Infrastructure.Migrations
                         .HasColumnType("character varying(200)")
                         .HasColumnName("title");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id");
 
                     b.ToTable("movies", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.MovieList", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTimeOffset>("From")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("from");
+
+                    b.Property<long>("MovieId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("movie_id");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("status");
+
+                    b.Property<long>("TheaterId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("theater_id");
+
+                    b.Property<DateTimeOffset>("To")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("to");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("TheaterId", "Status", "From", "To")
+                        .HasDatabaseName("Idx_MovieList_MovieId_From_To_TheaterId_Status");
+
+                    b.ToTable("movies_list", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Reservation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("email");
+
+                    b.Property<DateTimeOffset>("EndAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("end_at");
+
+                    b.Property<long>("HallId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("hall_id");
+
+                    b.Property<string>("Identification")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("identification");
+
+                    b.Property<string>("Invoice")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("invoice");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("location");
+
+                    b.Property<long>("MovieId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("movie_id");
+
+                    b.Property<long>("ShowScheduleId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("show_schedule_id");
+
+                    b.Property<DateTimeOffset>("StartAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("start_at");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("status");
+
+                    b.Property<long>("TheaterId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("theater_id");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .HasDatabaseName("Idx_Reservation_email");
+
+                    b.HasIndex("HallId");
+
+                    b.HasIndex("Identification")
+                        .HasDatabaseName("Idx_Reservation_identification");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("ShowScheduleId");
+
+                    b.HasIndex("TheaterId", "Status", "StartAt", "EndAt")
+                        .HasDatabaseName("Idx_Reservation_MovieId_From_To_TheaterId_Status");
+
+                    b.ToTable("reservations", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.ShowSchedule", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTimeOffset>("From")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("from");
+
+                    b.Property<long>("MovieId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("movie_id");
+
+                    b.Property<int>("SeatsAvailable")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0)
+                        .HasColumnName("seats_available");
+
+                    b.Property<int>("SeatsSold")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0)
+                        .HasColumnName("seats_sold");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("status");
+
+                    b.Property<long>("TheaterId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("theater_id");
+
+                    b.Property<DateTimeOffset>("To")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("to");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("TheaterId", "Status", "From", "To")
+                        .HasDatabaseName("Idx_ShowSchedule_MovieId_From_To_TheaterId_Status");
+
+                    b.ToTable("shows_schedule", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Theater", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("address");
+
+                    b.Property<string>("Contact")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("contact");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("name");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("theaters", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Hall", b =>
+                {
+                    b.HasOne("Domain.Entities.Theater", "Theater")
+                        .WithMany()
+                        .HasForeignKey("TheaterId");
+
+                    b.Navigation("Theater");
+                });
+
+            modelBuilder.Entity("Domain.Entities.MovieList", b =>
+                {
+                    b.HasOne("Domain.Entities.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Theater", "Theater")
+                        .WithMany()
+                        .HasForeignKey("TheaterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("Theater");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Reservation", b =>
+                {
+                    b.HasOne("Domain.Entities.Hall", "Hall")
+                        .WithMany()
+                        .HasForeignKey("HallId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.ShowSchedule", "ShowSchedule")
+                        .WithMany()
+                        .HasForeignKey("ShowScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Theater", "Theater")
+                        .WithMany()
+                        .HasForeignKey("TheaterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hall");
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("ShowSchedule");
+
+                    b.Navigation("Theater");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ShowSchedule", b =>
+                {
+                    b.HasOne("Domain.Entities.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Theater", "Theater")
+                        .WithMany()
+                        .HasForeignKey("TheaterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("Theater");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,6 +10,11 @@ public static class DependencyInyection
         services.AddTransient<GloblalExceptionHandlingMiddleware>();
         
         services.AddScoped<MovieService>();
+        services.AddScoped<TheaterService>();
+        services.AddScoped<HallService>();
+        services.AddScoped<MovieListService>();
+        services.AddScoped<ShowScheduleService>();
+        services.AddScoped<ReservationService>();
         
         return services;
 
