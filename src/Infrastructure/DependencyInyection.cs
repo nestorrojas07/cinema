@@ -37,6 +37,7 @@ public static class DependencyInyection
         services.AddScoped<IHallRepository, HallRepository>();
         services.AddScoped<IMovieListRepository, MovieListRepository>();
         services.AddScoped<IShowScheduleRepository, ShowScheduleRepository>();
+        services.AddScoped<IReservationRepository, ReservationRepository>();
 
         return services;
     }

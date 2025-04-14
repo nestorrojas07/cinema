@@ -62,7 +62,6 @@ public class ShowScheduleRepository : IShowScheduleRepository
         if (show == null)
             throw new KeyNotFoundException("ShowSchedule not found");
         
-        show.MovieId = entity.MovieId ?? show.MovieId;
         show.From = entity.From ?? show.From;
         show.To = entity.To ?? show.To;
         show.Status = entity.Status ?? show.Status;
@@ -72,5 +71,17 @@ public class ShowScheduleRepository : IShowScheduleRepository
         await _context.SaveChangesAsync();
 
         return show;
+    }
+    
+    public async Task IncrementSeatsStaticsticsAsyc(long showId, int seatsAvailable, int seatSold, CancellationToken token = default)
+    {
+        await _context.showSchedules
+            .Where(r => r.Id == showId)
+            .ExecuteUpdateAsync(b =>
+                b.SetProperty(u => u.SeatsAvailable, u => u.SeatsAvailable + seatsAvailable)
+                    .SetProperty(r => r.SeatsSold, r =>  r.SeatsSold + seatSold )
+                    .SetProperty(r => r.UpdatedAt, DateTimeOffset.UtcNow )
+            );
+        
     }
 }

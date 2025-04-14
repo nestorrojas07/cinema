@@ -1,5 +1,8 @@
-﻿namespace Domain.Entities.Enums;
+﻿using System.Text.Json.Serialization;
 
+namespace Domain.Entities.Enums;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum MovieListStatus
 {
     NoListed = 0,
