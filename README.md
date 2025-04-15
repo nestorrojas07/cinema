@@ -1,4 +1,4 @@
-# Hotel booking C#
+# Cinema booking C#
 ## Introduccion
 
 This project allows you to manage hotels and generate reservations in a set of hotels.
